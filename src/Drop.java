@@ -8,6 +8,7 @@ public class Drop {
 	private final List<Object> values = new ArrayList<>();
 	private final int takeSize = 5;
 	private final int maxSize = 70;
+	private boolean filled = false;
 
 	private final ForkJoinPool forkJoinPool;
 
@@ -30,8 +31,11 @@ public class Drop {
 	}
 
 	public synchronized void put(Object value) {
-		if (values.size() <= maxSize) {
+		if (!filled) {
 			values.add(value);
+			if (values.size() >= maxSize) {
+				filled = true;
+			}
 		} else {
 			shutdown();
 		}
