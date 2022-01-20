@@ -39,7 +39,7 @@ public class Drop {
 	}
 
 	private synchronized void shutdown() {
-		while (values.size() > 0) {
+		while (values.size() > takeSize) {
 			try {
 				wait();
 			} catch (InterruptedException e) {}
