@@ -30,8 +30,9 @@ public class Drop {
 	}
 
 	public synchronized void put(Object value) {
-		values.add(value);
-		if (values.size() >= maxSize) {
+		if (values.size() < maxSize) {
+			values.add(value);
+		} else {
 			shutdown();
 		}
 		notifyAll();
